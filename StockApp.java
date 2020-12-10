@@ -59,7 +59,7 @@ public class StockApp
     }
     else if(choice.equals("printAll"))
     {
-       printAllProducts();
+       
     }
     }
     
@@ -85,10 +85,6 @@ public class StockApp
         System.out.println("    PrintAll:   Print all products");
         System.out.println("    Quit:       Quit the program");
         System.out.println();        
-    }
-    public void printAllProducts()
-    {
-    manager.printAllProducts();
     }
     
     /**

@@ -1,33 +1,101 @@
-
 /**
- * Write a description of class StockDemo here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * Demonstrate the StockManager and Product classes.
+ * The demonstration becomes properly functional as
+ * the StockManager class is completed.
+ * 
+ * @author David J. Barnes and Michael Kölling.
+ * @version 2016.02.29
  */
+ 
 public class StockDemo
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    // The stock manager.
+    private StockManager manager;
 
     /**
-     * Constructor for objects of class StockDemo
+     * Create a StockManager and populate it with a few
+     * sample products.
      */
-    public StockDemo()
+    public StockDemo(StockManager manager)
     {
-        // initialise instance variables
-        x = 0;
+        this.manager = manager;
+        
+        manager = new StockManager();
+        manager.addProduct(new Product(101, "Clock Radio"));
+        manager.addProduct(new Product(102,  "Mobile Phone"));
+        manager.addProduct(new Product(103,  "Microwave Oven"));
+    }
+    
+    /**
+     * Provide a very simple demonstration of how a StockManager
+     * might be used. Details of one product are shown, the
+     * product is restocked, and then the details are shown again.
+     */
+    public void demoDelivery()
+    {
+        // Show details of all of the products.
+        manager.printProductDetails();
+        // Take delivery of 5 items of one of the products.
+        manager.delivery(101, 5);
+        manager.delivery(102, 3);
+        manager.printProductDetails();
+    }
+    
+    /**
+     * Show details of the given product. If found,
+     * its name and stock quantity will be shown.
+     * @param id The ID of the product to look for.
+     */
+    public void showDetails(int id)
+    {
+        Product product = getProduct(id);
+        
+        if(product != null) 
+        {
+            System.out.println(product.toString());
+        }
+    }
+    
+    /**
+     * Sell one of the given item.
+     * Show the before and after status of the product.
+     * @param id The ID of the product being sold.
+     */
+    public void sellProduct(int id)
+    {
+        Product product = getProduct(id);
+        
+        if(product != null) 
+        {
+            showDetails(id);
+            product.sellOne();
+            showDetails(id);
+        }
+    }
+    
+    /**
+     * Get the product with the given id from the manager.
+     * An error message is printed if there is no match.
+     * @param id The ID of the product.
+     * @return The Product, or null if no matching one is found.
+     */
+    public Product getProduct(int id)
+    {
+        Product product = manager.findProduct(id);
+        
+        if(product == null) 
+        {
+            System.out.println("Product with ID: " + id +
+                               " is not recognised.");
+        }
+        return product;
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * @return The stock manager.
      */
-    public int sampleMethod(int y)
+    public StockManager getManager()
     {
-        // put your code here
-        return x + y;
+        return manager;
     }
 }
